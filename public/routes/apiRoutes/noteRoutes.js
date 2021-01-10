@@ -1,6 +1,7 @@
-const { createNote } = require('../../lib/notes');
+const { filterByQuery, findById, createNote, validateNote, deleteNote } = require('../../lib/notes');
 const { notes } = require('../../../data/db.json');
-const router = require ('express').Router();
+const router = require('express').Router();
+const fs = require("fs");
 
 router.get('/notes', (req, res) => {
     let results = notes;
@@ -29,5 +30,12 @@ router.post('/notes', (req, res) => {
         res.json(note);
     }
 });
+
+router.delete('/notes/:id', (req, res) => {
+    const { id } = deleteNote;
+    const noteIndex = notes.filter(note => note.id == id);
+    notes.splice(noteIndex, 1);
+    return res.send("Success");
+})
 
 module.exports = router;
