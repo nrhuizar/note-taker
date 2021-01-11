@@ -11,7 +11,8 @@ router.get('/notes', (req, res) => {
     res.json(results);
 });
 
-router.get('/animals/:id', (req, res) => {
+// find notes
+router.get('/notes/:id', (req, res) => {
     const result = findById(req.params.id, notes);
     if (result) {
         res.json(result);
@@ -20,6 +21,7 @@ router.get('/animals/:id', (req, res) => {
     }
 });
 
+// add a note
 router.post('/notes', (req, res) => {
     req.body.id = notes.length.toString();
 
@@ -31,6 +33,7 @@ router.post('/notes', (req, res) => {
     }
 });
 
+// delete a note
 router.delete('/notes/:id', (req, res) => {
     const { id } = deleteNote;
     const noteIndex = notes.filter(note => note.id == id);
